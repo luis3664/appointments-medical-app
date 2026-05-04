@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "public",
+    "public": "dist/appointments-medical-app/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
