@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
+import { Auth, signOut, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 
 @Injectable({
@@ -25,6 +25,10 @@ export class AuthService {
         await this.saveUser(res.user);
 
         return res;
+    }
+
+    logout() {
+        return signOut(this.auth);
     }
 
     async saveUser(user: any) {

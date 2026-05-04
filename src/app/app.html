@@ -1,10 +1,19 @@
-<h2>Auth</h2>
+<header class="sticky-top">
 
-<button (click)="email()">Registro Email</button>
-<button (click)="google()">Login Google</button>
+</header>
+<main>
+    <section class="container-fluid">
+        <h2>Auth</h2>
 
-<h2>Turnos</h2>
+        <button (click)="email()">Registro Email</button>
+        <button (click)="google()">Login Google</button>
+        <button (click)="logout()">Logout</button>
 
-<button (click)="crearTurno()">Crear turno</button>
+        <h2>Turnos</h2>
 
-<router-outlet></router-outlet>
+        <button (click)="crearTurno()">Crear turno</button>
+        <router-outlet></router-outlet>
+    </section>
+</main>
+<footer>
+</footer>
