@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { Auth } from '@angular/fire/auth';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+
+    constructor(
+        private auth: Auth,
+        private router: Router
+    ) {}
+
+    canActivate(): boolean {
+
+        if (this.auth.currentUser) {
+        return true;
+        }
+
+        alert('Debes iniciar sesión para reservar un turno');
+
+        this.router.navigate(['/index']);
+
+        return false;
+    }
+}

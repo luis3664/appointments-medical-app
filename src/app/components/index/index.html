@@ -1,0 +1,32 @@
+<div class="home">
+
+    <div class="hero">
+        <img src="index.jpg" alt="Clínica" />
+    </div>
+
+    <div class="content">
+
+    <h1>Reserva tu turno</h1>
+
+    @if (!user) {
+        <p>
+            Para solicitar un turno debes iniciar sesión con tu cuenta de Gmail.
+        </p>
+    }
+
+    @if (message && !user) {
+        <div class="alert">
+            {{ message }}
+        </div>
+        }
+
+        <!-- BOTÓN DINÁMICO -->
+        @if (!user) {
+        <button (click)="google()">Iniciar sesión</button>
+        } @else {
+        <button (click)="goToAppointments()">Reservar turno</button>
+        }
+
+    </div>
+
+</div>

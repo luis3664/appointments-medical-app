@@ -1,0 +1,23 @@
+<div class="container">
+
+    <!-- Logo -->
+    <div class="logo">
+        🩺 Dra. Isi Lopez - Instituto Materno Infantil Crecer
+    </div>
+
+    <!-- Navegación -->
+    <nav class="nav">
+        <a routerLink="/index">Inicio</a>
+        <a routerLink="/appointments">Turnos</a>
+
+        <div class="user">
+            @if (user) {
+                <span>{{ user.displayName }}</span>
+                <button (click)="logout()">Logout</button>
+            } @else {
+                <button (click)="google()">Login</button>
+            }
+        </div>
+    </nav>
+
+</div>

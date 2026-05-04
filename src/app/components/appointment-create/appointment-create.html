@@ -1,0 +1,64 @@
+<div class="appointment">
+
+    <h2>Reservar turno</h2>
+
+    <!-- Cobertura -->
+    <label>Cobertura médica</label>
+    <select [(ngModel)]="coverage">
+        <option value="Particular">Particular</option>
+        <option value="OSDE">OSDE</option>
+        <option value="Swiss">Swiss Medical</option>
+        <option value="SPF">SPF</option>
+        <option value="OSECAC">OSECAC</option>
+        <option value="MEDICUS">MEDICUS</option>
+        <option value="IPROSS">IPROSS</option>
+        <option value="Avalian">Avalian</option>
+    </select>
+
+    @if (coverage !== 'Particular') {
+    <label>Número de afiliado</label>
+    <input type="text" [(ngModel)]="affiliateNumber">
+    }
+
+    <label>Nombre del paciente</label>
+    <input type="text" [(ngModel)]="patientName">
+
+    <label>DNI</label>
+    <input type="number" [(ngModel)]="dni">
+
+    <label>Teléfono</label>
+    <input type="tel" [(ngModel)]="phone">
+
+    <!-- Fecha -->
+    <label>Fecha</label>
+    <input type="date" [(ngModel)]="date">
+
+    <!-- Horarios -->
+    @if (date) {
+        <div class="times">
+        <h3>Horarios disponibles</h3>
+
+        @for (h of horarios; track h) {
+            <button 
+            (click)="selectTime(h)"
+            [class.selected]="time === h">
+            {{ h }}
+            </button>
+        }
+        </div>
+    }
+
+    <!-- Motivo -->
+    @if (time) {
+        <label>Motivo</label>
+        <input type="text" [(ngModel)]="reason">
+    }
+
+    <!-- Confirmar -->
+    @if (date && time && reason) {
+        <button class="confirm" (click)="crearTurno()">
+        Confirmar turno
+        </button>
+    }
+
+</div>

@@ -1,0 +1,66 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Imagen */
+.hero img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Contenido */
+.content {
+    margin-top: 20px;
+    max-width: 500px;
+    font-size: 22px;
+}
+
+.content h1 {
+    margin-bottom: 10px;
+}
+
+.content p {
+    color: #555;
+    margin-bottom: 22px;
+}
+
+/* Botón */
+button {
+    background: #37214a;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+button:hover {
+    background: #20013b;
+}
+
+/* 📱 Desktop mejora */
+@media (min-width: 768px) {
+    .home {
+        flex-direction: row;
+        gap: 40px;
+        text-align: left;
+    }
+
+    .hero,
+    .content {
+        flex: 1;
+    }
+
+    .hero img {
+        max-height: 400px;
+        width: 100%;
+        height: auto;        
+        object-fit: contain;
+    }
+}

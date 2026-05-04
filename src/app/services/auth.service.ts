@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, signOut, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,9 @@ export class AuthService {
 
     private provider = new GoogleAuthProvider();
 
-    constructor(private auth: Auth, private firestore: Firestore) {}
+    constructor(private auth: Auth, 
+        private firestore: Firestore, 
+        private router: Router) {}
 
     async register(email: string, password: string) {
         const res = await createUserWithEmailAndPassword(this.auth, email, password);
@@ -27,8 +30,10 @@ export class AuthService {
         return res;
     }
 
-    logout() {
-        return signOut(this.auth);
+    async logout() {
+        await signOut(this.auth);
+        // 👇 ahora sí se ejecuta
+        this.router.navigate(['/index']);
     }
 
     async saveUser(user: any) {

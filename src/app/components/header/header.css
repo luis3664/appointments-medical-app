@@ -1,0 +1,57 @@
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+/* NAV */
+.nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav a {
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.nav a:hover {
+    color: white;
+}
+
+/* USER */
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.user span {
+    font-size: 18px;
+    color: #cbd5f5;
+}
+
+button {
+    border: none;
+    background: #37214a;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background: #20013b;
+}

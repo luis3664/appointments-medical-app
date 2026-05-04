@@ -1,0 +1,22 @@
+.header {
+    background: #20013b;
+    color: white;
+    padding: 12px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f5f9;
+}
+
+main {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+h1, h2 {
+    margin-top: 0;
+}
