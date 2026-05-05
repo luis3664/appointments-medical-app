@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppointmentService } from '../../services/appointment.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment',
@@ -27,7 +28,7 @@ export class Appointment {
     '14:00', '14:30', '15:00'
   ];
 
-  constructor(private appt: AppointmentService) {}
+  constructor(private appt: AppointmentService, private router: Router) {}
 
   selectTime(h: string) {
     this.time = h;
@@ -52,6 +53,7 @@ export class Appointment {
       return;
     }
 
+    
     try {
       await this.appt.createAppointment({
         patientName: this.patientName,
@@ -63,8 +65,10 @@ export class Appointment {
         time: this.time,
         reason: this.reason
       });
+      
+      alert('Turno agendado.');
 
-      alert('Turno creado');
+      this.router.navigate(['/index']);
 
     } catch (e) {
       console.error(e);

@@ -12,10 +12,10 @@
 
         <div class="user">
             @if (user) {
-                <span>{{ user.displayName }}</span>
-                <button (click)="logout()">Logout</button>
+                <a routerLink="/user">{{ user.displayName }}</a>
+                <button (click)="logout()">Cerrar sesión</button>
             } @else {
-                <button (click)="google()">Login</button>
+                <button (click)="google()">Iniciar sesión</button>
             }
         </div>
     </nav>
