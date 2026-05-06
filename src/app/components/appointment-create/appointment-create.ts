@@ -77,7 +77,7 @@ export class Appointment {
     // 🔥 importante: extraes solo horarios
     const slots = await this.appt.getAvailableSlotsByDate(this.date);
 
-  // 🔥 filtro extra por seguridad
+    // 🔥 filtro extra por seguridad
     const freeSlots = slots.filter((s: any) => s.status === 'free');
 
     this.availableSlots = freeSlots;
