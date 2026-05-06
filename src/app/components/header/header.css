@@ -55,3 +55,9 @@ button {
 button:hover {
     background: #20013b;
 }
+
+.user-link {
+    cursor: pointer;
+    color: #3498db;
+    text-decoration: underline;
+}

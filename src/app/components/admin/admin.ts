@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './admin.html',
   styleUrl: './admin.css'
 })
-export class AdminComponent implements OnInit {
+export class Admin implements OnInit {
 
   appointments: any[] = [];
 

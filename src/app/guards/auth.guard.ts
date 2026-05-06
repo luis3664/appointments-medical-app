@@ -1,27 +1,19 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { Auth } from '@angular/fire/auth';
+import { CanActivateFn, Router } from '@angular/router';
+import { inject } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { firstValueFrom } from 'rxjs';
 
-@Injectable({
-    providedIn: 'root'
-})
-export class AuthGuard implements CanActivate {
+export const AuthGuard: CanActivateFn = async () => {
 
-    constructor(
-        private auth: Auth,
-        private router: Router
-    ) {}
+    const authService = inject(AuthService);
+    const router = inject(Router);
 
-    canActivate(): boolean {
+    const user = await firstValueFrom(authService.user$);
 
-        if (this.auth.currentUser) {
-        return true;
-        }
+    if (user) return true;
 
-        alert('Debes iniciar sesión para reservar un turno');
+    alert('Debes iniciar sesión para reservar un turno');
 
-        this.router.navigate(['/index']);
-
-        return false;
-    }
-}
+    router.navigate(['/index']);
+    return false;
+};

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,8 @@ export class Header implements OnInit {
 
   constructor(
     private auth: Auth,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -27,6 +29,19 @@ export class Header implements OnInit {
 
   async google() {
     await this.authService.loginWithGoogle();
+  }
+
+  async irUsuario() {
+
+    const user = await this.authService.getCurrentUserData();
+
+    if (!user) return;
+
+    if (user['role'] === 'admin') {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/user']);
+    }
   }
 
   async logout() {

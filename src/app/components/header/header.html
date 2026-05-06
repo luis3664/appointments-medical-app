@@ -12,7 +12,7 @@
 
         <div class="user">
             @if (user) {
-                <a routerLink="/user">{{ user.displayName }}</a>
+                <a class="user-link" (click)="irUsuario()">{{ user.displayName }}</a>
                 <button (click)="logout()">Cerrar sesión</button>
             } @else {
                 <button (click)="google()">Iniciar sesión</button>

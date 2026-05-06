@@ -72,6 +72,8 @@ export class Appointment {
   }
 
   async onDateChange() {
+    //await this.appt.deleteExpiredSlots();
+
     if (!this.date) return;
 
     // 🔥 importante: extraes solo horarios

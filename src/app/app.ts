@@ -43,16 +43,4 @@ export class App {
       console.error(e);
     }
   }
-
-  async crearTurno() {
-    try {
-      await this.appt.createAppointment({
-        date: '2026-05-10',
-        time: '14:30',
-        reason: 'Consulta genera'
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }
 }
