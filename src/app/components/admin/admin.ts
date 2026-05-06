@@ -23,6 +23,9 @@ export class Admin implements OnInit {
   selectedDates: string[] = [];
 
   slotTimes: string = '';
+  slotSearchDate: string = '';
+
+  slots: any[] = [];
 
   constructor(
     private appt: AppointmentService,
@@ -145,6 +148,55 @@ Slots existentes ignorados: ${skipped}
 
     this.selectedDates = [];
     this.slotTimes = '';
+  }
+
+  async onSlotDateChange() {
+
+    if (!this.slotSearchDate) {
+      this.slots = [];
+      return;
+    }
+
+    this.slots =
+      await this.appt.getSlotsByDate(this.slotSearchDate);
+
+  }
+
+  async deleteSlot(slot: any) {
+
+    // 🔥 si está ocupado
+    if (slot.status === 'booked') {
+
+      const appt: any =
+        await this.appt.getAppointmentByDateAndTime(
+          slot.date,
+          slot.time
+        );
+
+      if (appt) {
+
+        alert(
+          `Este turno está reservado.\n\nDNI paciente: ${appt.dni}`
+        );
+
+      }
+
+      return;
+    }
+
+    // 🔥 confirmar
+    const ok = confirm(
+      `Eliminar slot ${slot.date} ${slot.time}?`
+    );
+
+    if (!ok) return;
+
+    await this.appt.deleteSlot(slot.date, slot.time);
+
+    this.slots =
+      this.slots.filter(
+        s => !(s.date === slot.date && s.time === slot.time)
+      );
   }
 
   // =========================

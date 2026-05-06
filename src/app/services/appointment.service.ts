@@ -89,6 +89,53 @@ export class AppointmentService {
         return true;
     }
 
+    async getSlotsByDate(date: string) {
+
+        const ref =
+        collection(this.firestore, 'slots', date, 'times');
+
+        const snap = await getDocs(ref);
+
+        return snap.docs.map(d => ({
+            time: d.id,
+            date: date,
+            ...d.data()
+        }))
+        .sort((a: any, b: any) =>
+            a.time.localeCompare(b.time)
+        );
+    }
+
+    async deleteSlot(date: string, time: string) {
+
+        const ref =
+        doc(this.firestore, 'slots', date, 'times', time);
+
+        await deleteDoc(ref);
+
+    }
+
+    async getAppointmentByDateAndTime(
+        date: string,
+        time: string
+    ) {
+
+        const q = query(
+            collection(this.firestore, 'appointments'),
+            where('date', '==', date),
+            where('time', '==', time)
+        );
+
+        const snap = await getDocs(q);
+
+        if (snap.empty) return null;
+
+        return {
+            id: snap.docs[0].id,
+            ...snap.docs[0].data()
+        };
+    }
+
     async bookSlot(date: string, time: string, data: any) {
 
         const user = this.auth.currentUser;
@@ -123,6 +170,8 @@ export class AppointmentService {
             transaction.set(doc(apptRef), {
                 ...data,
                 userId: user.uid,
+                userEmail: user.email,
+                accountName: user.displayName || '',
                 timestamp: dateTime.getTime(),
                 createdAt: Date.now()
             });

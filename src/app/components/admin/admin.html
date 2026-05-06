@@ -56,6 +56,80 @@
     </div>
 
     <!-- ================================= -->
+    <!-- 📅 GESTIONAR SLOTS -->
+    <!-- ================================= -->
+
+    <div class="slot-panel">
+
+        <h2>Gestionar horarios</h2>
+
+        <label>Seleccionar fecha</label>
+
+        <input
+            type="date"
+            [(ngModel)]="slotSearchDate"
+            (change)="onSlotDateChange()">
+
+        @if (slots.length) {
+
+            <table class="appointments-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @for (slot of slots; track slot.time) {
+
+                        <tr>
+
+                            <td>{{ slot.time }}</td>
+
+                            <td>
+
+                                @if (slot.status === 'free') {
+
+                                    Libre
+
+                                } @else {
+
+                                    Ocupado
+
+                                }
+
+                            </td>
+
+                            <td>
+
+                                <button
+                                    (click)="deleteSlot(slot)">
+
+                                    Eliminar
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        }
+
+    </div>
+
+    <!-- ================================= -->
     <!-- 🔍 BUSQUEDA -->
     <!-- ================================= -->
 
