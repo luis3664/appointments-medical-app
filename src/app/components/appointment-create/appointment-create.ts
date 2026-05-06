@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
   styleUrl: './appointment-create.css'
 })
 export class Appointment {
+  availableSlots: any[] = [];
+  horarios: string[] = [];
 
   coverage: string = 'Particular';
   date: string = '';
@@ -21,12 +23,6 @@ export class Appointment {
   dni: string = '';
   phone: string = '';
   affiliateNumber: string = '';
-
-  horarios: string[] = [
-    '09:00', '09:30', '10:00',
-    '10:30', '11:00',
-    '14:00', '14:30', '15:00'
-  ];
 
   constructor(private appt: AppointmentService, private router: Router) {}
 
@@ -55,7 +51,7 @@ export class Appointment {
 
     
     try {
-      await this.appt.createAppointment({
+      await this.appt.bookSlot(this.date, this.time, {
         patientName: this.patientName,
         dni: this.dni,
         phone: this.phone,
@@ -73,5 +69,22 @@ export class Appointment {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  async onDateChange() {
+    if (!this.date) return;
+
+    // 🔥 importante: extraes solo horarios
+    const slots = await this.appt.getAvailableSlotsByDate(this.date);
+
+  // 🔥 filtro extra por seguridad
+    const freeSlots = slots.filter((s: any) => s.status === 'free');
+
+    this.availableSlots = freeSlots;
+
+    this.horarios = freeSlots.map((s: any) => s.time);
+
+    // reset selección anterior
+    this.time = '';
   }
 }
