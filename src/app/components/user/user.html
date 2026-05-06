@@ -1,1 +1,47 @@
-<p>user works!</p>
+<div class="user-container">
+
+    <!-- 👤 info usuario -->
+    <div class="user-info">
+        <h2>{{ userName }}</h2>
+        <p>{{ userEmail }}</p>
+    </div>
+
+    <!-- 📅 tabla -->
+    <h3>Mis turnos</h3>
+
+    <table class="appointments-table">
+
+        <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Paciente</th>
+            <th>Motivo</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @for (a of appointments; track a) {
+            <tr>
+
+            <td>{{ a.date }}</td>
+            <td>{{ a.time }}</td>
+            <td>{{ a.patientName }}</td>
+            <td>{{ a.reason }}</td>
+
+            <td>
+                <button 
+                (click)="cancelar(a)"
+                [disabled]="isPast(a)">
+                {{ isPast(a) ? 'Finalizado' : 'Cancelar' }}
+                </button>
+            </td>
+
+            </tr>
+        }
+        </tbody>
+
+    </table>
+
+</div>

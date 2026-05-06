@@ -7,10 +7,9 @@
     <input type="date" [(ngModel)]="date" (ngModelChange)="onDateChange()">
     
     <!-- Horarios -->
-    <h3>Horarios disponibles</h3>
     @if (date) {
+        <h3>Horarios disponibles</h3>
         <div class="times">
-            
             @for (h of horarios; track h) {
                 <button 
                     (click)="selectTime(h)"

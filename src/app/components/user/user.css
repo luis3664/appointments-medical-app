@@ -1,0 +1,60 @@
+.user-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.user-info {
+    margin-bottom: 25px;
+}
+
+.user-info h2 {
+    margin: 0;
+}
+
+.user-info p {
+    margin: 5px 0 0;
+    color: #555;
+}
+
+/* 🔥 tabla */
+.appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.appointments-table th,
+.appointments-table td {
+    padding: 14px 18px; /* 🔥 separa columnas */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.appointments-table th {
+    background-color: #f4f4f4;
+}
+
+.appointments-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* 🔥 botones */
+button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #c0392b;
+    color: white;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #a93226;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
