@@ -1,44 +1,151 @@
 <div class="admin-container">
 
-    <h2>Panel de administración</h2>
+    <!-- ================================= -->
+    <!-- 📅 CREAR SLOTS -->
+    <!-- ================================= -->
+
+    <div class="slot-panel">
+
+        <h2>Crear horarios disponibles</h2>
+
+        <!-- FECHA -->
+        <label>Seleccionar día</label>
+
+        <div class="date-row">
+
+            <input type="date" [(ngModel)]="selectedDate">
+
+            <button (click)="addDate()">
+                Agregar día
+            </button>
+
+        </div>
+
+        <!-- LISTA DE FECHAS -->
+        <div class="selected-dates">
+
+            @for (d of selectedDates; track d) {
+
+                <div class="date-chip">
+
+                    <span>{{ d }}</span>
+
+                    <button (click)="removeDate(d)">
+                        ✕
+                    </button>
+
+                </div>
+
+            }
+
+        </div>
+
+        <!-- HORARIOS -->
+        <label>Horarios (uno por línea)</label>
+
+        <textarea
+            [(ngModel)]="slotTimes"
+            placeholder="09:00&#10;10:00&#10;11:30">
+        </textarea>
+
+        <!-- BOTON -->
+        <button class="create-btn" (click)="createSlots()">
+            Crear slots
+        </button>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- 🔍 BUSQUEDA -->
+    <!-- ================================= -->
+
+    <h2>Panel de Turnos</h2>
+
+    <div class="filters">
+
+        <select
+            [(ngModel)]="searchType"
+            (change)="onSearchTypeChange()">
+
+            <option value="date">Fecha</option>
+            <option value="dni">DNI</option>
+
+        </select>
+
+        @if (searchType === 'date') {
+
+            <input
+                type="date"
+                [(ngModel)]="searchValue">
+
+        } @else {
+
+            <input
+                type="text"
+                [(ngModel)]="searchValue"
+                placeholder="Buscar...">
+
+        }
+
+        <button (click)="search()">
+            Buscar
+        </button>
+
+        <button (click)="ngOnInit()">
+            Reset
+        </button>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- 📋 TABLA -->
+    <!-- ================================= -->
 
     <table class="appointments-table">
 
         <thead>
-        <tr>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Paciente</th>
-            <th>DNI</th>
-            <th>Teléfono</th>
-            <th>Cobertura</th>
-            <th>Motivo</th>
-            <th>Acción</th>
-        </tr>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Paciente</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Cobertura</th>
+                <th>Motivo</th>
+                <th>Acción</th>
+            </tr>
         </thead>
 
         <tbody>
-        @for (a of appointments; track a) {
-            <tr>
 
-            <td>{{ a.date }}</td>
-            <td>{{ a.time }}</td>
-            <td>{{ a.patientName }}</td>
-            <td>{{ a.dni }}</td>
-            <td>{{ a.phone }}</td>
-            <td>{{ a.coverage }}</td>
-            <td>{{ a.reason }}</td>
+            @for (a of appointments; track a.id) {
 
-            <td>
-                <button 
-                (click)="cancelar(a)"
-                [disabled]="isPast(a)">
-                Cancelar
-                </button>
-            </td>
+                <tr>
 
-            </tr>
-        }
+                    <td>{{ a.date }}</td>
+                    <td>{{ a.time }}</td>
+                    <td>{{ a.patientName }}</td>
+                    <td>{{ a.dni }}</td>
+                    <td>{{ a.phone }}</td>
+                    <td>{{ a.coverage }}</td>
+                    <td>{{ a.reason }}</td>
+
+                    <td>
+
+                        <button
+                            (click)="cancelar(a)"
+                            [disabled]="isPast(a)">
+
+                            Cancelar
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            }
+
         </tbody>
 
     </table>

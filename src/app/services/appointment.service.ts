@@ -53,21 +53,40 @@ export class AppointmentService {
 
     async createSlot(date: string, time: string) {
 
-        const ref = doc(this.firestore, 'slots', date, 'times', time);
+        const ref =
+        doc(this.firestore, 'slots', date, 'times', time);
+
+        // 🔥 verificar si existe
+        const snap = await getDocs(
+        query(
+            collection(this.firestore, 'slots', date, 'times'),
+            where('__name__', '==', time)
+        )
+        );
+
+        if (!snap.empty) {
+
+        console.log(`Slot ya existe: ${date} ${time}`);
+        return false;
+
+        }
+
         const slotDate = new Date(`${date}T${time}:00`);
-        const slotDateTime = new Date(`${date} ${time}`);
-        const expiresAt = new Date(slotDateTime);
-        expiresAt.setDate(expiresAt.getDate() + 1)
+
+        const expiresAt = new Date(slotDate);
+        expiresAt.setDate(expiresAt.getDate() + 1);
 
         await setDoc(ref, {
+
             status: 'free',
             userId: null,
             timestamp: slotDate.getTime(),
             createdAt: Date.now(),
             expiresAt: expiresAt
+
         });
 
-
+        return true;
     }
 
     async bookSlot(date: string, time: string, data: any) {
@@ -195,5 +214,50 @@ export class AppointmentService {
         }
 
         console.log(`🧨 Slots eliminados: ${deletes.length}`);
+    }
+
+    async getAppointmentsByDate(date: string) {
+
+        const ref = collection(this.firestore, 'appointments');
+
+        const q = query(
+            ref,
+            where('date', '==', date),
+            orderBy('createdAt', 'desc')
+        );
+
+        const snap = await getDocs(q);
+
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }
+
+    async getAppointmentsByDni(dni: number) {
+
+        const ref = collection(this.firestore, 'appointments');
+
+        const q = query(
+            ref,
+            where('dni', '==', dni),
+            orderBy('createdAt', 'desc')
+        );
+
+        const snap = await getDocs(q);
+
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }
+
+    async getAppointmentsByName(name: string) {
+
+        const ref = collection(this.firestore, 'appointments');
+
+        const q = query(
+            ref,
+            where('patientName', '==', name),
+            orderBy('createdAt', 'desc')
+        );
+
+        const snap = await getDocs(q);
+
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
     }
 }
